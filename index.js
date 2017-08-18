@@ -1,5 +1,5 @@
 var numBalloons = 0;
-var maxBalloons = 20;
+var maxBalloons = 10;
 
 function addBalloon() {
   var balloon = document.createElement('img');
@@ -9,7 +9,7 @@ function addBalloon() {
   document.body.appendChild(balloon);
 
   // assume image is square
-  var width = 0.1 * Math.min(window.innerWidth, window.innerHeight);
+  var width = 0.2 * Math.min(window.innerWidth, window.innerHeight);
   var height = width;
 
   // resize balloon and position it just below the visible area
@@ -51,7 +51,7 @@ function removeBalloon(balloon) {
 
 TweenMax.ticker.addEventListener('tick', function() {
   // the fewer balloon on screen, the greater the chance to add more
-  var chance = 0.1 * (maxBalloons - numBalloons) / maxBalloons;
+  var chance = 0.05 * Math.pow((maxBalloons - numBalloons) / maxBalloons, 0.5);
   if (Math.random() < chance)
     addBalloon();
 });
