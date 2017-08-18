@@ -53,3 +53,9 @@ TweenMax.ticker.addEventListener('tick', function() {
   if (Math.random() < chance)
     addBalloon();
 });
+
+document.addEventListener('mousedown', function(event) {
+  if (event.target.tagName === 'IMG')
+    removeBalloon(event.target);
+  event.preventDefault();
+});
