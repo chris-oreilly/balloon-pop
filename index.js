@@ -9,7 +9,7 @@ function addBalloon() {
   document.body.appendChild(balloon);
 
   // assume image is square
-  var width = 0.2 * Math.min(window.innerWidth, window.innerHeight);
+  var width = 0.2 * Math.min(window.screen.width, window.screen.height);
   var height = width;
 
   // resize balloon and position it just below the visible area
