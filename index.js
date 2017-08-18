@@ -21,8 +21,10 @@ function addBalloon() {
     y: window.innerHeight,
   });
 
+  var speed = Math.random() + 0.5;
+
   // float steadily upward
-  TweenMax.to(balloon, 10, {
+  TweenMax.to(balloon, 10 / speed, {
     y: -height,
     ease: Linear.easeNone,
     onComplete: removeBalloon,
