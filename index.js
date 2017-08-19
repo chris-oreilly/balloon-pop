@@ -19,9 +19,9 @@ function addBalloon() {
 
   var floatTime = 10 / speed;
   var wobbleTime = 2;
-  var wobbleDist = width * 0.5 * speed;
+  var wobbleDist = Math.min(width * 0.2 * speed, window.innerWidth - width);
 
-  var x = (window.innerWidth - width * 1.5) * Math.random();
+  var x = (window.innerWidth - width - wobbleDist) * Math.random();
   var y = window.innerHeight;
 
   // resize balloon and position it just below the visible area
