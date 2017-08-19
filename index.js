@@ -56,8 +56,19 @@ TweenMax.ticker.addEventListener('tick', function() {
     addBalloon();
 });
 
-document.addEventListener('mousedown', function(event) {
+function handleTap(event) {
   if (event.target.tagName === 'IMG')
     removeBalloon(event.target);
   event.preventDefault();
-});
+}
+
+document.addEventListener('touchstart', handleTap);
+document.addEventListener('mousedown', handleTap);
+
+function disableMouseEvents() {
+  document.removeEventListener('mousedown', handleTap);
+  // this function only needs to run once
+  document.removeEventListener('touchstart', disableMouseEvents);
+}
+
+document.addEventListener('touchstart', disableMouseEvents);
