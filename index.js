@@ -36,7 +36,7 @@ function addBalloon() {
 
   // gently wobble sideways
   TweenMax.to(balloon, 2, {
-    x: '+=' + width * 0.5,
+    x: '+=' + width * 0.5 * speed,
     ease: Sine.easeInOut,
     repeat: -1,
     yoyoEase: true,
