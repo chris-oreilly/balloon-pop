@@ -10,6 +10,12 @@ body {
   background-color: #040404;
 }
 
+#counter {
+  font: 32px sans-serif;
+  color: #fafafa;
+  padding: 5px;
+}
+
 .balloon {
   visibility: hidden;
   position: absolute;

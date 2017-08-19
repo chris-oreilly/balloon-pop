@@ -1,6 +1,9 @@
 var numBalloons = 0;
 var maxBalloons = 10;
 
+var numPopped = 0;
+var counter = document.getElementById('counter');
+
 function addBalloon() {
   var balloon = document.createElement('img');
   balloon.className = 'balloon';
@@ -57,8 +60,11 @@ TweenMax.ticker.addEventListener('tick', function() {
 });
 
 function handleTap(event) {
-  if (event.target.tagName === 'IMG')
+  if (event.target.tagName === 'IMG') {
     removeBalloon(event.target);
+    numPopped++;
+    counter.innerHTML = numPopped;
+  }
   event.preventDefault();
 }
 
