@@ -40,7 +40,7 @@ function addBalloon() {
     ease: Sine.easeInOut,
     repeat: -1,
     yoyoEase: true,
-  });
+  }).seek(2 * Math.random());
 
   numBalloons++;
 }
