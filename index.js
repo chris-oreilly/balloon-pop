@@ -15,16 +15,23 @@ function addBalloon() {
   var width = 0.2 * Math.min(window.screen.width, window.screen.height);
   var height = width;
 
+  var speed = Math.random() + 0.5 + numPopped / 100;
+
+  var floatTime = 10 / speed;
+  var wobbleTime = 2;
+  var wobbleDist = width * 0.5 * speed;
+
+  var x = (window.innerWidth - width * 1.5) * Math.random();
+  var y = window.innerHeight;
+
   // resize balloon and position it just below the visible area
   TweenMax.set(balloon, {
     visibility: 'visible',
     width: width,
     height: height,
-    x: (window.innerWidth - width * 1.5) * Math.random(),
-    y: window.innerHeight,
+    x: x,
+    y: y,
   });
-
-  var speed = Math.random() + 0.5 + numPopped / 100;
 
   // float steadily upward
   TweenMax.to(balloon, 10 / speed, {
@@ -35,12 +42,12 @@ function addBalloon() {
   });
 
   // gently wobble sideways
-  TweenMax.to(balloon, 2, {
-    x: '+=' + width * 0.5 * speed,
+  TweenMax.to(balloon, wobbleTime, {
+    x: '+=' + wobbleDist,
     ease: Sine.easeInOut,
     repeat: -1,
     yoyoEase: true,
-  }).seek(2 * Math.random());
+  }).seek(wobbleTime * Math.random());
 
   numBalloons++;
 }
