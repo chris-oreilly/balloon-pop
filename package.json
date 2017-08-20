@@ -1,0 +1,10 @@
+{
+  "name": "balloon-pop",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir -p dist/ && inliner index.html > dist/index.html"
+  },
+  "devDependencies": {
+    "inliner": "^1.12.3"
+  }
+}
