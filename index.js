@@ -4,6 +4,11 @@ var maxBalloons = 10;
 var numPopped = 0;
 var counter = document.getElementById('counter');
 
+var pop = new Howl({
+  src: ['pop.webm', 'pop.mp3'],
+  volume: 0.25,
+});
+
 // returns a quasi-random number generator based on the golden ratio
 // idea borrowed from Martin Ankerl
 // martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
@@ -101,6 +106,7 @@ setInterval(function() {
 
 function handleTap(event) {
   if (event.target.className === 'balloon') {
+    pop.play();
     removeBalloon(event.target);
     numPopped++;
     counter.innerHTML = numPopped;

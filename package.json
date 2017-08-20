@@ -2,7 +2,7 @@
   "name": "balloon-pop",
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p dist/ && inliner index.html > dist/index.html"
+    "build": "mkdir -p dist/ && cp pop.* dist/ && inliner index.html > dist/index.html"
   },
   "devDependencies": {
     "inliner": "^1.12.3"
