@@ -15,7 +15,7 @@ function addBalloon() {
   var width = 0.2 * Math.min(window.screen.width, window.screen.height);
   var height = width;
 
-  var speed = Math.random() + 0.5 + numPopped / 100;
+  var speed = Math.random() + 0.5 + Math.pow(numPopped / 100, 0.5);
 
   var floatTime = 10 / speed;
   var wobbleTime = 2;
