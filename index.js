@@ -59,12 +59,10 @@ function removeBalloon(balloon) {
   numBalloons--;
 }
 
-TweenMax.ticker.addEventListener('tick', function() {
-  // the fewer balloon on screen, the greater the chance to add more
-  var chance = 0.05 * Math.pow((maxBalloons - numBalloons) / maxBalloons, 0.5);
-  if (Math.random() < chance)
+setInterval(function() {
+  if (numBalloons < maxBalloons)
     addBalloon();
-});
+}, 300);
 
 function handleTap(event) {
   if (event.target.tagName === 'IMG') {
