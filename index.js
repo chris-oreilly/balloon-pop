@@ -4,38 +4,59 @@ var maxBalloons = 10;
 var numPopped = 0;
 var counter = document.getElementById('counter');
 
+function hsla(h, s, l, a) {
+  return 'hsla(' +
+    Math.round(h * 360) +
+    ', ' + Math.round(s * 100) + '%' +
+    ', ' + Math.round(l * 100) + '%' +
+    ', ' + a +
+    ')';
+}
+
 function addBalloon() {
-  var balloon = document.createElement('img');
+  var balloon = document.createElement('canvas');
+  balloon.width = balloon.height = 100;
   balloon.className = 'balloon';
-  balloon.src = 'balloon.svg';
+
+  var ctx = balloon.getContext('2d');
+  ctx.beginPath();
+  ctx.moveTo(50, 0);
+  ctx.bezierCurveTo(80, 0, 88, 23, 88, 41);
+  ctx.bezierCurveTo(88, 74, 51, 100, 50, 100);
+  ctx.bezierCurveTo(50, 100, 14, 74, 14, 41);
+  ctx.bezierCurveTo(14, 23, 22, 0, 50, 0);
+  var hue = Math.round(Math.random() * 360);
+  var gradient = ctx.createRadialGradient(50, 40, 0, 50, 50, 50);
+  gradient.addColorStop(0, hsla(hue, 1.0, 0.9, 0.8));
+  gradient.addColorStop(1, hsla(hue, 1.0, 0.4, 0.9));
+  ctx.fillStyle = gradient;
+  ctx.fill();
 
   document.body.appendChild(balloon);
 
-  // assume image is square
-  var width = 0.2 * Math.min(window.screen.width, window.screen.height);
-  var height = width;
+  var size = 0.2 * Math.min(window.screen.width, window.screen.height);
 
   var speed = Math.random() + 0.5 + Math.pow(numPopped / 100, 0.5);
 
   var floatTime = 10 / speed;
   var wobbleTime = 2;
-  var wobbleDist = Math.min(width * 0.2 * speed, window.innerWidth - width);
+  var wobbleDist = Math.min(size * 0.2 * speed, window.innerWidth - size);
 
-  var x = (window.innerWidth - width - wobbleDist) * Math.random();
+  var x = (window.innerWidth - size - wobbleDist) * Math.random();
   var y = window.innerHeight;
 
   // resize balloon and position it just below the visible area
   TweenMax.set(balloon, {
     visibility: 'visible',
-    width: width,
-    height: height,
+    width: size,
+    height: size,
     x: x,
     y: y,
   });
 
   // float steadily upward
   TweenMax.to(balloon, 10 / speed, {
-    y: -height,
+    y: -size,
     ease: Linear.easeNone,
     onComplete: removeBalloon,
     onCompleteParams: [balloon],
@@ -65,7 +86,7 @@ setInterval(function() {
 }, 300);
 
 function handleTap(event) {
-  if (event.target.tagName === 'IMG') {
+  if (event.target.className === 'balloon') {
     removeBalloon(event.target);
     numPopped++;
     counter.innerHTML = numPopped;
