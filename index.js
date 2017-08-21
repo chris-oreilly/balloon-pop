@@ -34,18 +34,19 @@ function hsla(h, s, l, a) {
 
 function addBalloon() {
   var balloon = document.createElement('canvas');
-  balloon.width = balloon.height = 100;
+  balloon.width = 70;
+  balloon.height = 100;
   balloon.className = 'balloon';
 
   var ctx = balloon.getContext('2d');
   ctx.beginPath();
-  ctx.moveTo(50, 0);
-  ctx.bezierCurveTo(80, 0, 88, 23, 88, 41);
-  ctx.bezierCurveTo(88, 74, 51, 100, 50, 100);
-  ctx.bezierCurveTo(50, 100, 14, 74, 14, 41);
-  ctx.bezierCurveTo(14, 23, 22, 0, 50, 0);
+  ctx.moveTo(35, 0);
+  ctx.bezierCurveTo(62, 0, 70, 22, 70, 40);
+  ctx.bezierCurveTo(70, 75, 35, 100, 35, 100);
+  ctx.bezierCurveTo(35, 100, 0, 75, 0, 40);
+  ctx.bezierCurveTo(0, 22, 8, 0, 35, 0);
   var hue = randomHue();
-  var gradient = ctx.createRadialGradient(50, 40, 0, 50, 50, 50);
+  var gradient = ctx.createRadialGradient(45, 30, 0, 50, 50, 50);
   gradient.addColorStop(0, hsla(hue, 1.0, 0.9, 0.8));
   gradient.addColorStop(1, hsla(hue, 1.0, 0.4, 0.9));
   ctx.fillStyle = gradient;
@@ -67,7 +68,6 @@ function addBalloon() {
   // resize balloon and position it just below the visible area
   TweenMax.set(balloon, {
     visibility: 'visible',
-    width: size,
     height: size,
     x: x,
     y: y,
