@@ -2,7 +2,7 @@
   "name": "balloon-pop",
   "version": "1.0.0",
   "scripts": {
-    "build": "node build.js"
+    "build": "node scripts/build.js"
   },
   "devDependencies": {
     "fs-extra": "^4.0.1",

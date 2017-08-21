@@ -5,7 +5,7 @@ var numPopped = 0;
 var counter = document.getElementById('counter');
 
 var pop = new Howl({
-  src: ['pop.webm', 'pop.mp3'],
+  src: ['sounds/pop.webm', 'sounds/pop.mp3'],
   volume: 0.25,
 });
 
