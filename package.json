@@ -2,9 +2,10 @@
   "name": "balloon-pop",
   "version": "1.0.0",
   "scripts": {
-    "build": "mkdir -p dist/ && cp pop.* dist/ && inliner index.html > dist/index.html"
+    "build": "node build.js"
   },
   "devDependencies": {
+    "fs-extra": "^4.0.1",
     "inliner": "^1.12.3"
   }
 }
