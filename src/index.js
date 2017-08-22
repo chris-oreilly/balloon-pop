@@ -68,7 +68,8 @@ function addBalloon() {
   // resize balloon and position it just below the visible area
   TweenMax.set(balloon, {
     visibility: 'visible',
-    height: size,
+    transformOrigin: 'left top',
+    scale: size / 100,
     x: x,
     y: y,
   });
