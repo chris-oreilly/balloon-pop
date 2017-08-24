@@ -32,28 +32,27 @@ function hsla(h, s, l, a) {
     ')';
 }
 
-function addBalloon() {
-  var balloon = document.createElement('canvas');
-  balloon.width = 70;
-  balloon.height = 100;
-  balloon.className = 'balloon';
+function drawBalloon(canvas) {
+  canvas.width = 70;
+  canvas.height = 100;
 
-  var ctx = balloon.getContext('2d');
+  var ctx = canvas.getContext('2d');
   ctx.beginPath();
   ctx.moveTo(35, 0);
   ctx.bezierCurveTo(62, 0, 70, 22, 70, 40);
   ctx.bezierCurveTo(70, 75, 35, 100, 35, 100);
   ctx.bezierCurveTo(35, 100, 0, 75, 0, 40);
   ctx.bezierCurveTo(0, 22, 8, 0, 35, 0);
+
   var hue = randomHue();
   var gradient = ctx.createRadialGradient(45, 30, 0, 50, 50, 50);
   gradient.addColorStop(0, hsla(hue, 1.0, 0.9, 0.8));
   gradient.addColorStop(1, hsla(hue, 1.0, 0.4, 0.9));
   ctx.fillStyle = gradient;
   ctx.fill();
+}
 
-  document.body.appendChild(balloon);
-
+function animateBalloon(elem) {
   var size = 0.2 * Math.min(window.screen.width, window.screen.height);
 
   var speed = Math.random() + 0.5 + Math.pow(numPopped / 100, 0.5);
@@ -66,37 +65,43 @@ function addBalloon() {
   var y = window.innerHeight;
 
   // resize balloon and position it just below the visible area
-  TweenMax.set(balloon, {
+  TweenMax.set(elem, {
     visibility: 'visible',
     transformOrigin: 'left top',
-    scale: size / 100,
+    scale: size / elem.height,
     x: x,
     y: y,
   });
 
   // float steadily upward
-  TweenMax.to(balloon, 10 / speed, {
+  TweenMax.to(elem, 10 / speed, {
     y: -size,
     ease: Linear.easeNone,
     onComplete: removeBalloon,
-    onCompleteParams: [balloon],
+    onCompleteParams: [elem],
   });
 
   // gently wobble sideways
-  TweenMax.to(balloon, wobbleTime, {
+  TweenMax.to(elem, wobbleTime, {
     x: '+=' + wobbleDist,
     ease: Sine.easeInOut,
     repeat: -1,
     yoyoEase: true,
   }).seek(wobbleTime * Math.random());
+}
 
+function addBalloon() {
+  var balloon = document.createElement('canvas');
+  balloon.className = 'balloon';
+  drawBalloon(balloon);
+  document.body.appendChild(balloon);
+  animateBalloon(balloon);
   numBalloons++;
 }
 
 function removeBalloon(balloon) {
   TweenMax.killTweensOf(balloon);
   document.body.removeChild(balloon);
-
   numBalloons--;
 }
 
