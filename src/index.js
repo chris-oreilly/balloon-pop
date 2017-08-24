@@ -110,12 +110,24 @@ setInterval(function() {
     addBalloon();
 }, 300);
 
+var mask = document.createElement('canvas');
+drawBalloon(mask);
+var ctx = mask.getContext('2d');
+var maskData = ctx.getImageData(0, 0, mask.width, mask.height);
+
 function handleTap(event) {
   if (event.target.className === 'balloon') {
-    pop.play();
-    removeBalloon(event.target);
-    numPopped++;
-    counter.innerHTML = numPopped;
+    var balloon = event.target;
+    var x = Math.round((event.clientX - balloon._gsTransform.x) / balloon._gsTransform.scaleX);
+    var y = Math.round((event.clientY - balloon._gsTransform.y) / balloon._gsTransform.scaleY);
+    // get alpha channel of pixel at (x, y)
+    var idx = ((x * 4) + (y * maskData.width * 4)) + 3;
+    if (maskData.data[idx]) {
+      pop.play();
+      removeBalloon(event.target);
+      numPopped++;
+      counter.innerHTML = numPopped;
+    }
   }
   event.preventDefault();
 }
